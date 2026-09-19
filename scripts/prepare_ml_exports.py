@@ -174,8 +174,9 @@ tags:
 # Capstone support: accepted candidate F
 
 Experimental Russian SaaS / fictional ERP / telecom support LoRA adapter.
-Private staging packet; no distribution license is granted for project-authored
-adapter or data. License choice and rights review are required before public release.
+Published project artifact; project-specific licensing has not been selected.
+The upstream Base license does not automatically license the authored adapter or data.
+Code and launch tutorial: https://github.com/Akana92/SaaS-ERP-CRM-Support-Client
 
 ## Base and training
 Base: Qwen/Qwen3-4B-Instruct-2507, revision
@@ -211,6 +212,11 @@ reproduction bundle. See the code repository's docs/ML_ASSETS.md.
 DATASET_CARD = """---
 language:
 - ru
+configs:
+- config_name: default
+  data_files:
+  - split: train
+    path: data/quality90_v1/train/*.jsonl
 task_categories:
 - text-generation
 tags:
@@ -238,8 +244,9 @@ Protected questions/gold/reviews and the isolation receipt are deliberately abse
 Reproducing the original training gate requires a separately authorized receipt
 with SHA-256 1a918393bbc8b1727822d41182b844e3c89451939c7974a862217bc796fa697c.
 Its hash is an identifier, not the receipt. This packet is not complete experiment
-reproduction. No distribution license is granted for project-authored data;
-keep private until provenance, permissions, and licensing are reviewed.
+reproduction. Project-specific licensing has not been selected; publication
+does not grant an additional license for project-authored data.
+Code and launch tutorial: https://github.com/Akana92/SaaS-ERP-CRM-Support-Client
 """
 
 

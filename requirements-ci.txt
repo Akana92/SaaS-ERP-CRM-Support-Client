@@ -3,3 +3,5 @@ pydantic==2.13.5
 langgraph==1.0.10
 fastapi==0.119.1
 httpx==0.28.1
+# Real Linux shutdown regression; no model dependencies.
+uvicorn==0.52.4

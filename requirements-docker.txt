@@ -1,0 +1,14 @@
+# CUDA torch 2.6.0 is supplied by the pinned PyTorch base image.
+# Inference/API dependencies only; historical Gradio/TRL training stack excluded.
+pydantic==2.13.5
+transformers==4.57.6
+tokenizers==0.22.2
+peft==0.19.1
+bitsandbytes==0.48.2
+accelerate==1.10.1
+safetensors==0.5.3
+huggingface-hub==0.36.0
+langgraph==1.0.10
+fastapi==0.119.1
+uvicorn==0.52.4
+httpx==0.28.1

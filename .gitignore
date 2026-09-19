@@ -51,3 +51,8 @@ node_modules/
 AGENTS.md
 .DS_Store
 Thumbs.db
+
+# Container-local ML assets and credentials
+/adapters/
+/.secrets/
+!.env.example

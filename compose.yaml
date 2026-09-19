@@ -1,0 +1,64 @@
+name: saas-erp-support
+services:
+  app:
+    image: saas-erp-support:local
+    build: .
+    init: true
+    restart: "no"
+    stop_grace_period: 10m
+    ports:
+      - "127.0.0.1:7860:7860"
+    command: ["python", "-u", "scripts/live_demo.py", "serve", "--host", "0.0.0.0", "--precision", "${INFERENCE_PRECISION:-bf16}"]
+    volumes:
+      - type: bind
+        source: ${BASE_MODEL_DIR:-./models/qwen3_4b}
+        target: /app/models/qwen3_4b
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${ADAPTER_DIR:-./adapters/quality-f}
+        target: /app/artifacts/stage5/quality90-v1/training/candidate-f-v13-audited-labels/final_adapter
+        read_only: true
+        bind:
+          create_host_path: false
+      - live-data:/app/artifacts/stage5/live
+      - gpu-lock:/app/artifacts/stage4
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import json,urllib.request; r=json.load(urllib.request.urlopen('http://127.0.0.1:7860/health', timeout=5)); assert r.get('loaded') is True and r.get('adapter_profile') == 'quality-f'"]
+      interval: 30s
+      timeout: 10s
+      start_period: 5m
+      retries: 3
+  assets:
+    profiles: [setup]
+    image: saas-erp-support:local
+    build: .
+    init: true
+    restart: "no"
+    command: ["python", "-u", "scripts/fetch_assets.py", "--token-file", "/run/secrets/hf_token"]
+    environment:
+      HF_HUB_OFFLINE: "0"
+      TRANSFORMERS_OFFLINE: "0"
+    volumes:
+      - type: bind
+        source: ${BASE_MODEL_DIR:-./models/qwen3_4b}
+        target: /app/models/qwen3_4b
+      - type: bind
+        source: ${ADAPTER_DIR:-./adapters/quality-f}
+        target: /app/adapters/quality-f
+    secrets:
+      - hf_token
+secrets:
+  hf_token:
+    file: ${HF_TOKEN_FILE:-./.secrets/hf_token}
+volumes:
+  live-data:
+  gpu-lock:

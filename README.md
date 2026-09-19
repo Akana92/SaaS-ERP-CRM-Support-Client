@@ -48,11 +48,11 @@ flowchart LR
 
 Проверено локально на Windows / RTX 3080 Laptop 16 ГБ. Нужны Python 3.11, совместимый NVIDIA-драйвер, Base и отдельный адаптер F. В этом репозитории весов и полного TRAIN нет.
 
-1. [Полная инструкция GitHub + Hugging Face](docs/PUBLISHING.md): где взять артефакты и восстановить пути.
-2. [Установка, запуск, статус и безопасная остановка](docs/LOCAL_RUN_AND_DELIVERY.md).
+1. [Пошаговый запуск через Docker](docs/DOCKER_TUTORIAL.md): сборка, загрузка весов, GPU, запуск и остановка.
+2. [GitHub + Hugging Face и альтернативный Windows venv](docs/PUBLISHING.md).
 3. [Состав ML-пакетов](docs/ML_ASSETS.md).
 
-После установки зависимостей и загрузки весов:
+Docker image собран и запущен на RTX 3080 Laptop 16 ГБ; проверены две связанные реплики и сохранение беседы после пересоздания контейнера. Для native Windows после установки зависимостей и загрузки весов по инструкции:
 
 ```powershell
 .\.venv\Scripts\python.exe -X utf8 -B scripts/live_demo.py start --adapter-profile quality-f --precision bf16 --attention sdpa_repeat_kv
@@ -70,6 +70,8 @@ Invoke-RestMethod http://127.0.0.1:7860/health
 
 ## Материалы проекта
 
+- [Что это за проект: задача, сценарии, архитектура и границы результата](docs/PROJECT_OVERVIEW.md).
+
 - [Презентация PowerPoint: 15 слайдов, реальные скриншоты](deliverables/presentation/AI-Customer-Support-Manager-v3.pptx).
 - [Презентация PDF](deliverables/presentation/AI-Customer-Support-Manager.pdf).
 - [Демо-ERP](docs/DEMO_ERP.md), [состав сдачи](docs/SUBMISSION_CHECKLIST.md).
@@ -78,7 +80,7 @@ Invoke-RestMethod http://127.0.0.1:7860/health
 
 ## Границы версии
 
-Hugging Face Model/Dataset пока требуют создания владельцем и локальной авторизации — [инструкция](docs/PUBLISHING.md). Чистая установка на другом компьютере и полный повтор исторического обучения не проверены. Для повторения обучения кроме TRAIN нужна отдельная квитанция изоляции; код не обходит эту проверку. Защищённые dev/test/gold и индивидуальные оценки не публикуются.
+Выбраны публичные Hugging Face [Model](https://huggingface.co/AkanaYB/saas-erp-support-qwen3-4b-adapter-f) и [Dataset](https://huggingface.co/datasets/AkanaYB/saas-erp-support-ru-train-v13). Локальный вход выполнен; upload пока заблокирован 403 из-за токена только для чтения. Загрузка не подтверждена — [статус и инструкция](docs/PUBLISHING.md). Загрузчик использует commit SHA из `configs/asset-sources.json`; незаполненная revision означает незавершённую публикацию. Чистая установка на другом компьютере и полный повтор исторического обучения не проверены. Для повторения обучения кроме TRAIN нужна отдельная квитанция изоляции; код не обходит эту проверку. Защищённые dev/test/gold и индивидуальные оценки не публикуются.
 
 GitHub-публикация не запускает сайт в интернете. Здесь нет production-аутентификации, SaaS-биллинга или подключения к реальной ERP; общие демо-роли предназначены для локального показа. RAG и числовой confidence отложены.
 

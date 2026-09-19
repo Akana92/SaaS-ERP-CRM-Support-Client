@@ -5,6 +5,7 @@ import argparse
 import json
 import os
 from pathlib import Path
+import signal
 import socket
 import subprocess
 import sys
@@ -57,12 +58,12 @@ def offline_environment() -> dict[str, str]:
     return env
 
 
-def assert_port_free(port: int) -> None:
+def assert_port_free(port: int, host: str = "127.0.0.1") -> None:
     with socket.socket() as probe:
         # Exclusive bind prevents Windows SO_REUSEADDR from hiding an occupied port.
         if os.name == "nt":
             probe.setsockopt(socket.SOL_SOCKET, socket.SO_EXCLUSIVEADDRUSE, 1)
-        probe.bind(("127.0.0.1", port))
+        probe.bind((host, port))
 
 
 def assert_no_legacy_inference() -> None:
@@ -79,8 +80,25 @@ Select-Object ProcessId | ConvertTo-Json -Compress'''
         raise RuntimeError("Cannot confirm that legacy inference is stopped; GPU launch refused.")
 
 
+def run_server(server) -> None:
+    if os.name == "nt" or threading.current_thread() is not threading.main_thread():
+        server.run()
+        return
+
+    def request_shutdown(signum, frame) -> None:
+        server.should_exit = True
+
+    # Uvicorn restores and replays SIGTERM after ASGI shutdown. Consume that
+    # replay so serve() can record stopped and release the loaded runtime.
+    previous = signal.signal(signal.SIGTERM, request_shutdown)
+    try:
+        server.run()
+    finally:
+        signal.signal(signal.SIGTERM, previous)
+
+
 def serve(port: int, run_id: str, precision: str = "bf16", adapter_profile: str = "quality-f",
-          attention: str = "sdpa_repeat_kv") -> None:
+          attention: str = "sdpa_repeat_kv", host: str = "127.0.0.1") -> None:
     attention = normalize_attention_backend(attention)
     os.environ.update(offline_environment())
     from support.contracts import PolicyDocument
@@ -90,7 +108,7 @@ def serve(port: int, run_id: str, precision: str = "bf16", adapter_profile: str 
     import uvicorn
 
     selected = serving_info(adapter_profile)
-    assert_port_free(port)
+    assert_port_free(port, host)
     # Shared OS lock is released even if this process crashes; no stale PID bypass.
     with gpu_lock(LOCK):
         assert_no_unmanaged_training()
@@ -112,7 +130,7 @@ def serve(port: int, run_id: str, precision: str = "bf16", adapter_profile: str 
             app = create_live_app(runtime, policy, store_path=OUTPUT / "store.json",
                                   archive_path=OUTPUT / "pre-ux-update-snapshot.json", serving_info=selected)
             server = uvicorn.Server(uvicorn.Config(app,
-                                                   host="127.0.0.1", port=port, workers=1,
+                                                   host=host, port=port, workers=1,
                                                    access_log=False, log_level="info"))
 
             def watch_stop() -> None:
@@ -133,7 +151,7 @@ def serve(port: int, run_id: str, precision: str = "bf16", adapter_profile: str 
             record.update(status="starting_server", loaded_at=time.time())
             write_json(STATUS, record)
             threading.Thread(target=watch_stop, daemon=True, name="local-demo-stop").start()
-            server.run()
+            run_server(server)
             record.update(status="stopped", ended_at=time.time())
         except BaseException:
             record.update(status="failed", ended_at=time.time())
@@ -145,16 +163,16 @@ def serve(port: int, run_id: str, precision: str = "bf16", adapter_profile: str 
 
 
 def start(port: int, precision: str = "bf16", adapter_profile: str = "quality-f",
-          attention: str = "sdpa_repeat_kv") -> dict:
+          attention: str = "sdpa_repeat_kv", host: str = "127.0.0.1") -> dict:
     attention = normalize_attention_backend(attention)
     selected = serving_info(adapter_profile)
-    assert_port_free(port)
+    assert_port_free(port, host)
     OUTPUT.mkdir(parents=True, exist_ok=True)
     run_id = uuid.uuid4().hex
     with (OUTPUT / f"{run_id}.stdout.log").open("w", encoding="utf-8") as stdout, \
             (OUTPUT / f"{run_id}.stderr.log").open("w", encoding="utf-8") as stderr:
         process = subprocess.Popen([sys.executable, "-u", "-B", str(Path(__file__).resolve()),
-                                    "serve", "--port", str(port), "--run-id", run_id,
+                                    "serve", "--port", str(port), "--host", host, "--run-id", run_id,
                                     "--adapter-profile", adapter_profile,
                                     "--attention", attention, "--precision", precision],
                                    cwd=ROOT, env=offline_environment(), stdin=subprocess.DEVNULL,
@@ -180,6 +198,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("action", choices=("start", "serve", "status", "stop"))
     parser.add_argument("--port", type=int, default=7860)
+    parser.add_argument("--host", choices=("127.0.0.1", "0.0.0.0"), default="127.0.0.1",
+                        help="Use 0.0.0.0 only inside a container with a loopback-published port.")
     parser.add_argument("--run-id", default=None)
     parser.add_argument("--adapter-profile", choices=tuple(ADAPTER_PATHS), default="quality-f",
                         help="Adapter for this local demo; does not change frozen evaluation or weights.")
@@ -191,9 +211,9 @@ def main() -> None:
     if not 1024 <= args.port <= 65535:
         parser.error("port must be 1024..65535")
     if args.action == "serve":
-        serve(args.port, args.run_id or uuid.uuid4().hex, args.precision, args.adapter_profile, args.attention)
+        serve(args.port, args.run_id or uuid.uuid4().hex, args.precision, args.adapter_profile, args.attention, args.host)
         return
-    result = start(args.port, args.precision, args.adapter_profile, args.attention) if args.action == "start" else stop() if args.action == "stop" else read_json(STATUS, {})
+    result = start(args.port, args.precision, args.adapter_profile, args.attention, args.host) if args.action == "start" else stop() if args.action == "stop" else read_json(STATUS, {})
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
 
