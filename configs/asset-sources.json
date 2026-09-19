@@ -110,7 +110,7 @@
   "dataset": {
     "repo_id": "AkanaYB/saas-erp-support-ru-train-v13",
     "repo_type": "dataset",
-    "revision": "84813aabfdaf1b9f85f17955128d5003872b7554",
+    "revision": "b110d85782245c6678ff278ab23b6738b06c1622",
     "verification": "SHA-256 and bytes from approved export manifest",
     "files": {
       "data/quality90_v1/train/erp_joint_v12.jsonl": {

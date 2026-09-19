@@ -227,7 +227,7 @@ tags:
 # Capstone support: F training shards
 
 Train-only synthetic Russian SaaS / fictional ERP / telecom scenarios:
-430 dialogues, 1113 target turns, 13 local JSONL shards. Not real NLS customer data.
+430 dialogues, 1113 target turns, 13 local JSONL shards. No real company or customer data.
 No validation/test split is published here. Files preserve project-relative paths
 under data/quality90_v1/train; restore those paths in a checkout to reuse them.
 Each dialogue contains context and turn-level target labels/replies. The exact

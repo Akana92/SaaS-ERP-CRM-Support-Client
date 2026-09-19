@@ -2,11 +2,11 @@
 
 Docker запускает FastAPI, клиентский чат, админку, LangGraph и локальную Qwen с адаптером F в одном Linux-контейнере. Устанавливать Python и CUDA Toolkit на Windows для этого способа не нужно. NVIDIA-драйвер, Docker Desktop и WSL2 нужны на самом компьютере.
 
-О назначении, сценариях и результатах: [что это за проект](PROJECT_OVERVIEW.md). [Что проверено на реальном ноутбуке](DOCKER_VERIFICATION.md).
+О назначении, сценариях и результатах: [что это за проект](PROJECT_OVERVIEW.md). [Проверенная конфигурация и результаты](DOCKER_VERIFICATION.md).
 
 ## 1. Подготовить компьютер
 
-Проверенная исходная машина: Windows, RTX 3080 Laptop с 16 ГБ видеопамяти. Docker использует GPU этой же машины; он не заменяет видеокарту и не ускоряет модель сам по себе. По умолчанию выбран BF16, при нехватке VRAM можно установить `INFERENCE_PRECISION=nf4` в `.env`.
+Проверенная конфигурация: Windows, RTX 3080 Laptop с 16 ГБ видеопамяти. Для работы модели Docker использует GPU компьютера. По умолчанию выбран BF16, при нехватке VRAM можно установить `INFERENCE_PRECISION=nf4` в `.env`.
 
 - Установить/запустить [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) с Linux-контейнерами и WSL2 backend.
 - Установить совместимый NVIDIA-драйвер Windows. Отдельный Linux display driver внутри WSL не ставить.
@@ -43,7 +43,7 @@ docker compose build app
 - Fine-tuned: [AkanaYB/saas-erp-support-qwen3-4b-adapter-f](https://huggingface.co/AkanaYB/saas-erp-support-qwen3-4b-adapter-f).
 - TRAIN, отдельно от запуска чата: [AkanaYB/saas-erp-support-ru-train-v13](https://huggingface.co/datasets/AkanaYB/saas-erp-support-ru-train-v13).
 
-Оба собственных пакета опубликованы публично: адаптер закреплён на commit `b0862d45d6a2bf71eb1578ac8ca91cdf6e5d5986`, TRAIN — `84813aabfdaf1b9f85f17955128d5003872b7554`. Загрузчик использует точные commit SHA и проверяет размер/SHA-256 каждого файла. Он не заменяет уже существующие несовпадающие файлы.
+Оба собственных пакета опубликованы публично: адаптер закреплён на commit `b0862d45d6a2bf71eb1578ac8ca91cdf6e5d5986`, TRAIN — `b110d85782245c6678ff278ab23b6738b06c1622`. Загрузчик использует точные commit SHA и проверяет размер/SHA-256 каждого файла. Он не заменяет уже существующие несовпадающие файлы.
 
 Для публичных файлов достаточно пустого файла секрета:
 
@@ -61,13 +61,13 @@ docker compose --profile setup run --rm assets
 
 TRAIN не нужен для чата и штатным сервисом `assets` не скачивается. Необязательная загрузка TRAIN в checkout через Windows venv описана в [PUBLISHING.md](PUBLISHING.md); запуск `--dataset` внутри одноразового контейнера без отдельного bind mount не сохранит данные на хосте.
 
-### Если веса уже скачаны на этом ноутбуке
+### Использование ранее скачанных весов
 
-Можно указать существующие каталоги в `.env`, используя прямые слеши:
+Укажите в `.env` пути к существующим каталогам Base и адаптера. Ниже приведён пример для Windows; замените пути своими, используя прямые слеши:
 
 ```dotenv
-BASE_MODEL_DIR=D:/Agents/Projects/Capstone N4/models/qwen3_4b
-ADAPTER_DIR=D:/Agents/Projects/Capstone N4/artifacts/stage8/ml-exports/model
+BASE_MODEL_DIR=C:/ai-models/qwen3_4b
+ADAPTER_DIR=C:/ai-models/quality-f
 INFERENCE_PRECISION=bf16
 HF_TOKEN_FILE=./.secrets/hf_token
 ```
@@ -78,18 +78,11 @@ HF_TOKEN_FILE=./.secrets/hf_token
 docker compose --profile setup run --rm assets python scripts/fetch_assets.py --verify-only
 ```
 
-Это проверяет исходные веса и подготовленный переносимый экспорт F. Пути других компьютеров будут отличаться. Не подставлять каталог checkpoints вместо `final_adapter`/проверенного экспорта.
+Загрузчик проверит комплектность и хеши Base и адаптера F. Указывайте каталог финального адаптера, а не промежуточного checkpoint.
 
 ## 4. Запустить приложение
 
-Если до этого работал native-сервер проекта, остановить его из **исходной папки проекта**:
-
-```powershell
-.\.venv\Scripts\python.exe scripts/live_demo.py stop
-.\.venv\Scripts\python.exe scripts/live_demo.py status
-```
-
-Дождаться `stopped` и освобождения порта/GPU. Затем в Docker-checkout:
+Выполняйте команды из каталога проекта с файлом `compose.yaml`. Если приложение уже запущено вне Docker, сначала [остановите этот сервер](LOCAL_RUN_AND_DELIVERY.md) и дождитесь освобождения порта 7860 и GPU.
 
 ```powershell
 docker compose up -d app
@@ -120,7 +113,7 @@ Invoke-RestMethod http://127.0.0.1:7860/health
 
 Это ручные вымышленные примеры демо-ERP, а не закрытые вопросы итогового теста.
 
-## 6. Остановить и перенести ноутбук
+## 6. Остановка и повторный запуск приложения
 
 ```powershell
 docker compose exec app python scripts/live_demo.py stop
@@ -128,9 +121,9 @@ docker compose logs --tail 30 app
 docker compose ps -a
 ```
 
-Штатный stop ждёт текущую обработку и сохранение истории. Перед переносом убедиться, что контейнер завершился (`Exited`), а GPU освобождена. Можно также использовать `docker compose stop app`: Compose даёт до 10 минут на завершение, после чего может принудительно остановить процесс. Во время первоначальной загрузки весов ещё нет обычного HTTP-обработчика завершения; перед отправкой рабочих сообщений дождаться готовности.
+Штатная остановка дожидается завершения текущего запроса и сохранения истории. Проверьте, что контейнер перешёл в состояние `Exited`: приложение остановлено и освободило GPU. Можно также использовать `docker compose stop app`: Compose даёт до 10 минут на завершение, после чего может принудительно остановить процесс. Во время первоначальной загрузки весов ещё нет обычного HTTP-обработчика завершения; перед отправкой рабочих сообщений дождаться готовности.
 
-Следующий запуск:
+Для повторного запуска:
 
 ```powershell
 docker compose up -d app

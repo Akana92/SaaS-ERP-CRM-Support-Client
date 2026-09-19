@@ -2,7 +2,7 @@
 
 Русскоязычный локальный помощник поддержки SaaS/ERP/телекома. Два контура: удобный чат для клиента или сотрудника и админка для сравнения моделей, истории, трейсинга и очереди оператора.
 
-Учебный capstone-проект. Все ERP-объекты вымышлены; интеграции с реальной NLS нет. Модель работает на GPU ноутбука, платные API не используются.
+Учебный capstone-проект. Все ERP-объекты вымышлены; интеграции с реальными корпоративными системами нет. Модель работает локально на GPU, платные API не используются.
 
 ![Клиентский чат](docs/images/client-chat.jpg)
 
@@ -66,7 +66,7 @@ Invoke-RestMethod http://127.0.0.1:7860/health
 .\.venv\Scripts\python.exe -X utf8 -B scripts/live_demo.py status
 ```
 
-Перед переносом ноутбука дождаться `stopped`. Переписка, состояния процессов и checkpoints не включены в Git.
+Дождитесь статуса `stopped`, подтверждающего завершение сервера. Переписка, состояния процессов и checkpoints не включены в Git.
 
 ## Материалы проекта
 
@@ -80,7 +80,7 @@ Invoke-RestMethod http://127.0.0.1:7860/health
 
 ## Границы версии
 
-Опубликованы публичные Hugging Face [Model](https://huggingface.co/AkanaYB/saas-erp-support-qwen3-4b-adapter-f) и [Dataset](https://huggingface.co/datasets/AkanaYB/saas-erp-support-ru-train-v13). Публикация подтверждена 19 сентября 2026: Model `b0862d45d6a2bf71eb1578ac8ca91cdf6e5d5986`, Dataset `84813aabfdaf1b9f85f17955128d5003872b7554`. Загрузчик использует закреплённые commit SHA из `configs/asset-sources.json`; [получение пакетов](docs/PUBLISHING.md), [границы проверки Docker](docs/DOCKER_VERIFICATION.md). Чистая установка на другом компьютере и полный повтор исторического обучения не проверены. Для повторения обучения кроме TRAIN нужна отдельная квитанция изоляции; код не обходит эту проверку. Защищённые dev/test/gold и индивидуальные оценки не публикуются.
+Опубликованы публичные Hugging Face [Model](https://huggingface.co/AkanaYB/saas-erp-support-qwen3-4b-adapter-f) и [Dataset](https://huggingface.co/datasets/AkanaYB/saas-erp-support-ru-train-v13). Публикация подтверждена 19 сентября 2026: Model `b0862d45d6a2bf71eb1578ac8ca91cdf6e5d5986`, Dataset `b110d85782245c6678ff278ab23b6738b06c1622`. Загрузчик использует закреплённые commit SHA из `configs/asset-sources.json`; [получение пакетов](docs/PUBLISHING.md), [границы проверки Docker](docs/DOCKER_VERIFICATION.md). Чистая установка на другом компьютере и полный повтор исторического обучения не проверены. Для повторения обучения кроме TRAIN нужна отдельная квитанция изоляции; код не обходит эту проверку. Защищённые dev/test/gold и индивидуальные оценки не публикуются.
 
 GitHub-публикация не запускает сайт в интернете. Здесь нет production-аутентификации, SaaS-биллинга или подключения к реальной ERP; общие демо-роли предназначены для локального показа. RAG и числовой confidence отложены.
 

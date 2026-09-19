@@ -11,7 +11,7 @@
 | [Hugging Face Dataset](https://huggingface.co/datasets/AkanaYB/saas-erp-support-ru-train-v13) | Публичный репозиторий 13 финальных TRAIN-шардов v13, карточки и SHA-манифеста |
 | Ноутбук | GPU, скачанные веса, история диалогов и очередь оператора |
 
-**Оба ML-пакета опубликованы 19 сентября 2026 и доступны публично.** Model: commit `b0862d45d6a2bf71eb1578ac8ca91cdf6e5d5986` (12 файлов, 148 087 233 байта). Dataset: commit `84813aabfdaf1b9f85f17955128d5003872b7554` (15 файлов, 2 650 126 байт). Источник закреплённых ревизий и SHA-256 — [configs/asset-sources.json](../configs/asset-sources.json). Загрузчик использует точные commit SHA, а не ветку `main`. Границы проверки скачивания и запуска описаны в [DOCKER_VERIFICATION.md](DOCKER_VERIFICATION.md).
+**Оба ML-пакета опубликованы 19 сентября 2026 и доступны публично.** Model: commit `b0862d45d6a2bf71eb1578ac8ca91cdf6e5d5986` (12 файлов, 148 087 233 байта). Dataset: commit `b110d85782245c6678ff278ab23b6738b06c1622` (15 файлов, 2 650 132 байт). Источник закреплённых ревизий и SHA-256 — [configs/asset-sources.json](../configs/asset-sources.json). Загрузчик использует точные commit SHA, а не ветку `main`. Границы проверки скачивания и запуска описаны в [DOCKER_VERIFICATION.md](DOCKER_VERIFICATION.md).
 
 Base `Qwen/Qwen3-4B-Instruct-2507` скачивается из официального репозитория, ревизия `cdbee75f17c01a7cc42f958dc650907174af0554`. Базовые веса не дублируются в собственных репозиториях. GitHub и HF хранят файлы; публикация не запускает SaaS. Docker использует GPU компьютера, на котором его запустили. Docker image собран и проверен на RTX 3080 Laptop 16 ГБ: чат, админка, две связанные реплики и история после пересоздания контейнера.
 

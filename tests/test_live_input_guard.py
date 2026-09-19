@@ -78,7 +78,7 @@ class InputGuardTests(unittest.TestCase):
         for text in ("фвыпфывпфывп", "аааааааа", "абабабабабаб", "!!!???", "   "):
             with self.subTest(text=text):
                 self.assertIsNotNone(inspect_message(text))
-        for text in ("да", "нет", "нет сети", "ERP", "NLS", "СИМ", "интернет",
+        for text in ("да", "нет", "нет сети", "ERP", "СИМ", "интернет",
                      "Абай 164", "Ибрагим", "Караганда", "TIMEOUT", "E-404", "123456",
                      "00000000", "AB123456", "https://example.org", "PIN", "👍", "Здравствуйте"):
             with self.subTest(text=text):
