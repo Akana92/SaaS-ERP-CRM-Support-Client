@@ -1,16 +1,16 @@
 # Модель и обучающие данные: отдельные пакеты
 
-Код приложения хранится в GitHub. Крупные веса и обучающие данные подготовлены
-отдельно для двух **публичных** целевых репозиториев Hugging Face: один типа Model,
+Код приложения хранится в GitHub. Адаптер и обучающие данные опубликованы
+отдельно в двух **публичных** репозиториях Hugging Face: один типа Model,
 второй типа Dataset. Публикация кода не означает запуск сайта или GPU-сервера.
 Подготовка пакетов ничего не загружает в интернет и не запускает обучение.
 
-## Что подготовлено
+## Что опубликовано
 
 | Пакет | Локальная папка от корня проекта | Размер со служебными файлами |
 |---|---|---:|
-| Принятый адаптер F | `artifacts/stage8/ml-exports/model` | 148 087 152 байта |
-| Только обучающие данные F | `artifacts/stage8/ml-exports/dataset` | 2 649 942 байта |
+| Принятый адаптер F | `artifacts/stage8/ml-exports/model` | 148 087 233 байта |
+| Только обучающие данные F | `artifacts/stage8/ml-exports/dataset` | 2 650 126 байт |
 
 Веса `adapter_model.safetensors` занимают 132 187 888 байт. Это LoRA-адаптер,
 а не полная модель. Пакет модели содержит девять исходных файлов адаптера и
@@ -38,10 +38,11 @@
 - Model: [AkanaYB/saas-erp-support-qwen3-4b-adapter-f](https://huggingface.co/AkanaYB/saas-erp-support-qwen3-4b-adapter-f).
 - Dataset: [AkanaYB/saas-erp-support-ru-train-v13](https://huggingface.co/datasets/AkanaYB/saas-erp-support-ru-train-v13).
 
-Владелец выбрал публичную видимость. Локальный вход выполнен; upload возвращает
-403 из-за токена только для чтения. Успешная загрузка пока не подтверждена.
-После загрузки точные commit SHA фиксируются в `configs/asset-sources.json`;
-Base уже закреплена, `revision: null` не считается опубликованной версией.
+Публикация обоих пакетов подтверждена 19 сентября 2026, видимость публичная.
+Model: commit `b0862d45d6a2bf71eb1578ac8ca91cdf6e5d5986`, 12 файлов.
+Dataset: commit `84813aabfdaf1b9f85f17955128d5003872b7554`, 15 файлов.
+Точные commit SHA закреплены в `configs/asset-sources.json` вместе с Base.
+Проверки получения файлов и запуска описаны в [DOCKER_VERIFICATION.md](DOCKER_VERIFICATION.md).
 Нельзя загружать целиком `artifacts`, `data` или `models`.
 
 Лицензия Apache-2.0 в `BASE_MODEL_LICENSE` относится к исходным материалам Qwen,

@@ -7,15 +7,15 @@
 | Место | Содержимое |
 | --- | --- |
 | GitHub | Backend, frontend, обучение, конфигурации, CPU-тесты, агрегаты оценки, презентация, Dockerfile и Compose |
-| [Hugging Face Model](https://huggingface.co/AkanaYB/saas-erp-support-qwen3-4b-adapter-f) | Публичный целевой репозиторий адаптера F, tokenizer, карточки и SHA-манифеста |
-| [Hugging Face Dataset](https://huggingface.co/datasets/AkanaYB/saas-erp-support-ru-train-v13) | Публичный целевой репозиторий 13 финальных TRAIN-шардов v13, карточки и SHA-манифеста |
+| [Hugging Face Model](https://huggingface.co/AkanaYB/saas-erp-support-qwen3-4b-adapter-f) | Публичный репозиторий адаптера F, tokenizer, карточки и SHA-манифеста |
+| [Hugging Face Dataset](https://huggingface.co/datasets/AkanaYB/saas-erp-support-ru-train-v13) | Публичный репозиторий 13 финальных TRAIN-шардов v13, карточки и SHA-манифеста |
 | Ноутбук | GPU, скачанные веса, история диалогов и очередь оператора |
 
-Публичную видимость ML-пакетов выбрал владелец. **Статус подготовки: локальный вход Hugging Face выполнен, но upload возвращает 403: текущий токен имеет только чтение. Загрузка пакетов пока не подтверждена.** Источник точных ревизий — [configs/asset-sources.json](../configs/asset-sources.json): Base уже закреплена, `revision: null` для адаптера или TRAIN означает незавершённую публикацию этого пакета. Загрузчик не подменяет отсутствующий commit SHA веткой `main`.
+**Оба ML-пакета опубликованы 19 сентября 2026 и доступны публично.** Model: commit `b0862d45d6a2bf71eb1578ac8ca91cdf6e5d5986` (12 файлов, 148 087 233 байта). Dataset: commit `84813aabfdaf1b9f85f17955128d5003872b7554` (15 файлов, 2 650 126 байт). Источник закреплённых ревизий и SHA-256 — [configs/asset-sources.json](../configs/asset-sources.json). Загрузчик использует точные commit SHA, а не ветку `main`. Границы проверки скачивания и запуска описаны в [DOCKER_VERIFICATION.md](DOCKER_VERIFICATION.md).
 
 Base `Qwen/Qwen3-4B-Instruct-2507` скачивается из официального репозитория, ревизия `cdbee75f17c01a7cc42f958dc650907174af0554`. Базовые веса не дублируются в собственных репозиториях. GitHub и HF хранят файлы; публикация не запускает SaaS. Docker использует GPU компьютера, на котором его запустили. Docker image собран и проверен на RTX 3080 Laptop 16 ГБ: чат, админка, две связанные реплики и история после пересоздания контейнера.
 
-## Загрузка подготовленных пакетов владельцем
+## Повторная публикация пакетов владельцем
 
 В исходном workspace подготовлены только разрешённые пакеты:
 
@@ -55,7 +55,7 @@ py -3.11 -m venv .venv
 
 Нужен совместимый NVIDIA-драйвер. Исходный native-запуск проверялся на RTX 3080 Laptop 16 ГБ. Чистая установка на другом устройстве не проверена; CPU CI не подтверждает работу GPU.
 
-После завершения HF-публикации и закрепления ревизий получить Base и адаптер в пути native-приложения:
+Получить опубликованные Base и адаптер в пути native-приложения (для публичных пакетов вход Hugging Face не требуется):
 
 ```powershell
 .\.venv\Scripts\python.exe scripts/fetch_assets.py --adapter-dir artifacts/stage5/quality90-v1/training/candidate-f-v13-audited-labels/final_adapter
@@ -73,7 +73,13 @@ Invoke-RestMethod http://127.0.0.1:7860/health
 
 Дождаться `stopped`. [Подробности native-запуска](LOCAL_RUN_AND_DELIVERY.md).
 
-Для исследования TRAIN добавить `--dataset` к команде `fetch_assets.py` с тем же `--adapter-dir`. Скрипт восстановит только разрешённые `data/quality90_v1/train/*.jsonl`, сохранив README проекта. SHA всех 13 файлов закреплены в конфигурации обучения и `configs/asset-sources.json`.
+Для исследования TRAIN выполнить необязательную команду после настройки Windows venv:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/fetch_assets.py --adapter-dir artifacts/stage5/quality90-v1/training/candidate-f-v13-audited-labels/final_adapter --dataset
+```
+
+Команда также проверяет Base и адаптер, скачивая недостающие файлы. Для TRAIN скрипт восстановит только разрешённые `data/quality90_v1/train/*.jsonl`, сохранив README проекта. SHA всех 13 файлов закреплены в конфигурации обучения и `configs/asset-sources.json`.
 
 ## Обучение, резервная копия и права
 

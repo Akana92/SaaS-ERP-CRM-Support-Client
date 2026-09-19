@@ -43,7 +43,7 @@ docker compose build app
 - Fine-tuned: [AkanaYB/saas-erp-support-qwen3-4b-adapter-f](https://huggingface.co/AkanaYB/saas-erp-support-qwen3-4b-adapter-f).
 - TRAIN, отдельно от запуска чата: [AkanaYB/saas-erp-support-ru-train-v13](https://huggingface.co/datasets/AkanaYB/saas-erp-support-ru-train-v13).
 
-Загрузчик использует точные commit SHA и проверяет размер/SHA-256 каждого файла. Он не заменяет уже существующие несовпадающие файлы. Наличие ссылок на HF-репозитории само по себе не означает, что туда уже загружены веса; если revision ещё `null`, публикацию соответствующего пакета нужно завершить.
+Оба собственных пакета опубликованы публично: адаптер закреплён на commit `b0862d45d6a2bf71eb1578ac8ca91cdf6e5d5986`, TRAIN — `84813aabfdaf1b9f85f17955128d5003872b7554`. Загрузчик использует точные commit SHA и проверяет размер/SHA-256 каждого файла. Он не заменяет уже существующие несовпадающие файлы.
 
 Для публичных файлов достаточно пустого файла секрета:
 
@@ -57,7 +57,9 @@ docker compose --profile setup run --rm assets
 
 Это отдельный сервис загрузки без GPU. Он запишет Base в `models/qwen3_4b`, адаптер — в `adapters/quality-f`. Основному контейнеру эти папки доступны только для чтения. Проверенные файлы при следующем запуске повторно не скачиваются.
 
-Если репозитории Private, записать read-токен в `.secrets/hf_token`. Файл исключён из Git и Docker build; секрет подключается только к сервису `assets`, не к работающему чату. Не указывать токен в `.env`, аргументах команды или README. [Права Hugging Face](https://huggingface.co/docs/hub/security-tokens).
+Если для другой поставки выбраны Private-репозитории, записать read-токен в `.secrets/hf_token`. Файл исключён из Git и Docker build; секрет подключается только к сервису `assets`, не к работающему чату. Не указывать токен в `.env`, аргументах команды или README. [Права Hugging Face](https://huggingface.co/docs/hub/security-tokens).
+
+TRAIN не нужен для чата и штатным сервисом `assets` не скачивается. Необязательная загрузка TRAIN в checkout через Windows venv описана в [PUBLISHING.md](PUBLISHING.md); запуск `--dataset` внутри одноразового контейнера без отдельного bind mount не сохранит данные на хосте.
 
 ### Если веса уже скачаны на этом ноутбуке
 
