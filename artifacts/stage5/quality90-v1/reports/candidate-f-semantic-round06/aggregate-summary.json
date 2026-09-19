@@ -1,0 +1,345 @@
+{
+  "schema": "quality90-f-descriptive-aggregate-v1",
+  "report_status": "provisional_incomplete_review",
+  "assessment_label": "AI-assessed descriptive provisional bounds",
+  "prescribed_review_work_completed": true,
+  "review_workflow_complete": false,
+  "accepted_merge": false,
+  "full_success_rate": null,
+  "gate_eligible": false,
+  "human_verified": false,
+  "primary_rows": 450,
+  "secondary_rows": 148,
+  "adjudication_rows": 114,
+  "total_prescribed_rows": 712,
+  "unresolved_rows": 4,
+  "null_criteria": 4,
+  "paired_cases": {
+    "matrix_base_rows_candidate_columns": {
+      "success": {
+        "success": 8,
+        "failure": 2,
+        "unknown": 0
+      },
+      "failure": {
+        "success": 41,
+        "failure": 49,
+        "unknown": 0
+      },
+      "unknown": {
+        "success": 0,
+        "failure": 0,
+        "unknown": 0
+      }
+    },
+    "both_success": 8,
+    "only_base_success": 2,
+    "only_candidate_success": 41,
+    "both_failure": 49,
+    "unknown_pairs": 0
+  },
+  "method_status": "QUALIFIED",
+  "limitations": [
+    "QUALIFIED: one authorized operational restart, not a predeclared slow-call retry; strict original retry-protocol adherence not claimed.",
+    "Lane03 primary eight-row reviewer object-to-string correction independently audited; all other fields unchanged.",
+    "All712 prescribed review rows completed; remaining nulls retained, no extra judges or forced guesses.",
+    "Reviewer identity labels and leader fresh-agent attestations are provenance; independent verifier must assess host evidence.",
+    "Current F report only; no new training, test, promotion or candidate authorized."
+  ],
+  "operational_timing": {
+    "launch_to_completion_seconds": 12993.540739297867,
+    "no_save_interval_before_recovery_seconds": 2327.456305027008,
+    "exact_interrupted_generate_duration_seconds": null,
+    "note": "Completed-call latency excludes abandoned work/loading/gaps; wall interval includes them. No-save interval is not measured generate latency or proven speedup."
+  },
+  "base": {
+    "successful_cases": 10,
+    "failed_cases": 90,
+    "unknown_cases": 0,
+    "possible_success_rate_range": [
+      0.1,
+      0.1
+    ],
+    "turn_accuracy": {
+      "category": {
+        "correct": 178,
+        "total": 225,
+        "rate": 0.7911111111111111
+      },
+      "priority": {
+        "correct": 156,
+        "total": 225,
+        "rate": 0.6933333333333334
+      },
+      "sentiment": {
+        "correct": 210,
+        "total": 225,
+        "rate": 0.9333333333333333
+      },
+      "recommended_action": {
+        "correct": 111,
+        "total": 225,
+        "rate": 0.49333333333333335
+      },
+      "human_escalation": {
+        "correct": 134,
+        "total": 225,
+        "rate": 0.5955555555555555
+      },
+      "all_five": {
+        "correct": 64,
+        "total": 225,
+        "rate": 0.28444444444444444
+      },
+      "contract_valid": {
+        "correct": 219,
+        "total": 225,
+        "rate": 0.9733333333333334
+      }
+    },
+    "semantic_review_coverage": {
+      "turns": 225,
+      "reviewed_turns": 225,
+      "fully_reviewed_turns": 225,
+      "kinds": {
+        "ai": 225
+      },
+      "reviewer_versions": [
+        "/root/round06_adjudication_01 | gpt-6-astra (build unknown)",
+        "/root/round06_adjudication_02; Codex GPT-6; exact model build unavailable",
+        "/root/round06_adjudication_03; gpt-6-astra; build unknown",
+        "/root/round06_primary_01; model GPT-6 family; exact model version/build unknown",
+        "/root/round06_primary_02; GPT-6; exact build unknown",
+        "/root/round06_primary_03; model=unknown; version=unknown",
+        "/root/round06_primary_04; model=GPT-6; exact_build=unknown",
+        "/root/round06_primary_05; model=GPT-6; exact_build=unknown"
+      ],
+      "null_criteria": 0,
+      "rows_with_null": 0
+    },
+    "resources": {
+      "calls": 225,
+      "complete_usage_calls": 225,
+      "input_tokens": {
+        "known_sum": 1042029,
+        "known_calls": 225,
+        "unknown_calls": 0
+      },
+      "output_tokens": {
+        "known_sum": 30190,
+        "known_calls": 225,
+        "unknown_calls": 0
+      },
+      "total_tokens": {
+        "known_sum": 1072219,
+        "known_calls": 225,
+        "unknown_calls": 0
+      },
+      "api_cost": {
+        "known_sum": 0.0,
+        "known_calls": 225,
+        "unknown_calls": 0
+      },
+      "latency_ms": {
+        "known_calls": 225,
+        "unknown_calls": 0,
+        "mean": 33488.52444444445,
+        "p50": 25805,
+        "p95_nearest_rank": 136379,
+        "max": 192145,
+        "sum": 7534918
+      },
+      "currency": "USD"
+    },
+    "assessment": "incomplete_or_mixed_review",
+    "full_success_rate": null,
+    "error_dimensions": {
+      "turn_denominator": 225,
+      "semantic_criteria_turn_counts": {
+        "understandable": {
+          "true": 224,
+          "false": 1,
+          "null": 0
+        },
+        "useful_next_step": {
+          "true": 177,
+          "false": 48,
+          "null": 0
+        },
+        "uses_context": {
+          "true": 187,
+          "false": 38,
+          "null": 0
+        },
+        "no_unnecessary_repeat": {
+          "true": 206,
+          "false": 19,
+          "null": 0
+        },
+        "grounded": {
+          "true": 148,
+          "false": 77,
+          "null": 0
+        },
+        "policy_and_handoff_consistent": {
+          "true": 108,
+          "false": 117,
+          "null": 0
+        }
+      },
+      "grounded_failures": 77,
+      "grounded_unknown": 0,
+      "handoff": {
+        "unnecessary": 0,
+        "missed": 85,
+        "contract_invalid_unclassified": 6
+      },
+      "definition": "Grounded failure is existing reviewer false, not a newly inferred hallucination count. Handoff compares recorded expected/predicted boolean only on valid raw contracts."
+    }
+  },
+  "fine_tuned": {
+    "successful_cases": 49,
+    "failed_cases": 51,
+    "unknown_cases": 0,
+    "possible_success_rate_range": [
+      0.49,
+      0.49
+    ],
+    "turn_accuracy": {
+      "category": {
+        "correct": 208,
+        "total": 225,
+        "rate": 0.9244444444444444
+      },
+      "priority": {
+        "correct": 199,
+        "total": 225,
+        "rate": 0.8844444444444445
+      },
+      "sentiment": {
+        "correct": 223,
+        "total": 225,
+        "rate": 0.9911111111111112
+      },
+      "recommended_action": {
+        "correct": 206,
+        "total": 225,
+        "rate": 0.9155555555555556
+      },
+      "human_escalation": {
+        "correct": 209,
+        "total": 225,
+        "rate": 0.9288888888888889
+      },
+      "all_five": {
+        "correct": 175,
+        "total": 225,
+        "rate": 0.7777777777777778
+      },
+      "contract_valid": {
+        "correct": 225,
+        "total": 225,
+        "rate": 1.0
+      }
+    },
+    "semantic_review_coverage": {
+      "turns": 225,
+      "reviewed_turns": 225,
+      "fully_reviewed_turns": 221,
+      "kinds": {
+        "ai": 225
+      },
+      "reviewer_versions": [
+        "/root/round06_adjudication_01 | gpt-6-astra (build unknown)",
+        "/root/round06_adjudication_02; Codex GPT-6; exact model build unavailable",
+        "/root/round06_adjudication_03; gpt-6-astra; build unknown",
+        "/root/round06_primary_01; model GPT-6 family; exact model version/build unknown",
+        "/root/round06_primary_02; GPT-6; exact build unknown",
+        "/root/round06_primary_03; model=unknown; version=unknown",
+        "/root/round06_primary_04; model=GPT-6; exact_build=unknown",
+        "/root/round06_primary_05; model=GPT-6; exact_build=unknown"
+      ],
+      "null_criteria": 4,
+      "rows_with_null": 4
+    },
+    "resources": {
+      "calls": 225,
+      "complete_usage_calls": 225,
+      "input_tokens": {
+        "known_sum": 1040945,
+        "known_calls": 225,
+        "unknown_calls": 0
+      },
+      "output_tokens": {
+        "known_sum": 28244,
+        "known_calls": 225,
+        "unknown_calls": 0
+      },
+      "total_tokens": {
+        "known_sum": 1069189,
+        "known_calls": 225,
+        "unknown_calls": 0
+      },
+      "api_cost": {
+        "known_sum": 0.0,
+        "known_calls": 225,
+        "unknown_calls": 0
+      },
+      "latency_ms": {
+        "known_calls": 225,
+        "unknown_calls": 0,
+        "mean": 46905.14666666667,
+        "p50": 29590,
+        "p95_nearest_rank": 75460,
+        "max": 1597509,
+        "sum": 10553658
+      },
+      "currency": "USD"
+    },
+    "assessment": "incomplete_or_mixed_review",
+    "full_success_rate": null,
+    "error_dimensions": {
+      "turn_denominator": 225,
+      "semantic_criteria_turn_counts": {
+        "understandable": {
+          "true": 222,
+          "false": 3,
+          "null": 0
+        },
+        "useful_next_step": {
+          "true": 204,
+          "false": 21,
+          "null": 0
+        },
+        "uses_context": {
+          "true": 219,
+          "false": 6,
+          "null": 0
+        },
+        "no_unnecessary_repeat": {
+          "true": 222,
+          "false": 3,
+          "null": 0
+        },
+        "grounded": {
+          "true": 197,
+          "false": 24,
+          "null": 4
+        },
+        "policy_and_handoff_consistent": {
+          "true": 196,
+          "false": 29,
+          "null": 0
+        }
+      },
+      "grounded_failures": 24,
+      "grounded_unknown": 4,
+      "handoff": {
+        "unnecessary": 4,
+        "missed": 12,
+        "contract_invalid_unclassified": 0
+      },
+      "definition": "Grounded failure is existing reviewer false, not a newly inferred hallucination count. Handoff compares recorded expected/predicted boolean only on valid raw contracts."
+    }
+  }
+}

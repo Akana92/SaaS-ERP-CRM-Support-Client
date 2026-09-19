@@ -1,0 +1,16 @@
+# Native Windows / Python 3.11. Install CUDA torch from the official index first:
+# python -m pip install torch==2.6.0+cu124 --index-url https://download.pytorch.org/whl/cu124
+-r requirements-stage1.txt
+torch==2.6.0+cu124
+transformers==4.57.6
+trl==0.29.1
+peft==0.19.1
+bitsandbytes==0.48.2
+accelerate==1.10.1
+datasets==3.6.0
+safetensors==0.5.3
+huggingface-hub==0.36.0
+langgraph==1.0.10
+gradio==6.13.0
+fastapi==0.119.1
+httpx==0.28.1

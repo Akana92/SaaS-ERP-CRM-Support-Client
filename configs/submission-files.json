@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "purpose": "local_handoff_not_publication",
+  "files": [
+    {
+      "source": "README_FOR_SUBMISSION.md",
+      "archive": "README.md"
+    },
+    {
+      "source": "scripts/live_demo.py",
+      "archive": "scripts/live_demo.py"
+    },
+    {
+      "source": "scripts/training_control.py",
+      "archive": "scripts/training_control.py"
+    },
+    {
+      "source": "scripts/build_submission.py",
+      "archive": "scripts/build_submission.py"
+    },
+    {
+      "source": "scripts/build_business_report.py",
+      "archive": "scripts/build_business_report.py"
+    },
+    {
+      "source": "src/support/__init__.py",
+      "archive": "src/support/__init__.py"
+    },
+    {
+      "source": "src/support/contracts.py",
+      "archive": "src/support/contracts.py"
+    },
+    {
+      "source": "src/support/efficient_attention.py",
+      "archive": "src/support/efficient_attention.py"
+    },
+    {
+      "source": "src/support/graph.py",
+      "archive": "src/support/graph.py"
+    },
+    {
+      "source": "src/support/modeling.py",
+      "archive": "src/support/modeling.py"
+    },
+    {
+      "source": "src/support/prompting.py",
+      "archive": "src/support/prompting.py"
+    },
+    {
+      "source": "src/support/live_app.py",
+      "archive": "src/support/live_app.py"
+    },
+    {
+      "source": "src/support/live_chat.py",
+      "archive": "src/support/live_chat.py"
+    },
+    {
+      "source": "src/support/live_contracts.py",
+      "archive": "src/support/live_contracts.py"
+    },
+    {
+      "source": "src/support/live_dialogue.py",
+      "archive": "src/support/live_dialogue.py"
+    },
+    {
+      "source": "src/support/live_erp.py",
+      "archive": "src/support/live_erp.py"
+    },
+    {
+      "source": "src/support/live_evaluation.py",
+      "archive": "src/support/live_evaluation.py"
+    },
+    {
+      "source": "src/support/live_input_guard.py",
+      "archive": "src/support/live_input_guard.py"
+    },
+    {
+      "source": "src/support/live_precision.py",
+      "archive": "src/support/live_precision.py"
+    },
+    {
+      "source": "src/support/live_reply_guard.py",
+      "archive": "src/support/live_reply_guard.py"
+    },
+    {
+      "source": "src/support/live_runtime.py",
+      "archive": "src/support/live_runtime.py"
+    },
+    {
+      "source": "src/support/live_service.py",
+      "archive": "src/support/live_service.py"
+    },
+    {
+      "source": "src/support/live_store.py",
+      "archive": "src/support/live_store.py"
+    },
+    {
+      "source": "src/support/business_metrics.py",
+      "archive": "src/support/business_metrics.py"
+    },
+    {
+      "source": "src/support/live_input_reference.json",
+      "archive": "src/support/live_input_reference.json"
+    },
+    {
+      "source": "src/support/live_static/admin.html",
+      "archive": "src/support/live_static/admin.html"
+    },
+    {
+      "source": "src/support/live_static/client.html",
+      "archive": "src/support/live_static/client.html"
+    },
+    {
+      "source": "src/support/live_static/live.css",
+      "archive": "src/support/live_static/live.css"
+    },
+    {
+      "source": "src/support/live_static/shared.css",
+      "archive": "src/support/live_static/shared.css"
+    },
+    {
+      "source": "src/support/live_static/live.js",
+      "archive": "src/support/live_static/live.js"
+    },
+    {
+      "source": "configs/models.json",
+      "archive": "configs/models.json"
+    },
+    {
+      "source": "configs/train-quality90-f-v13-audited-labels.json",
+      "archive": "configs/train-quality90-f-v13-audited-labels.json"
+    },
+    {
+      "source": "configs/submission-files.json",
+      "archive": "configs/submission-files.json"
+    },
+    {
+      "source": "data/policy/employee-telecom-v3.json",
+      "archive": "data/policy/employee-telecom-v3.json"
+    },
+    {
+      "source": "data/erp/live-audiences.json",
+      "archive": "data/erp/live-audiences.json"
+    },
+    {
+      "source": "data/erp/live-objects.json",
+      "archive": "data/erp/live-objects.json"
+    },
+    {
+      "source": "requirements-stage1.txt",
+      "archive": "requirements-stage1.txt"
+    },
+    {
+      "source": "requirements-stage2.txt",
+      "archive": "requirements-stage2.txt"
+    },
+    {
+      "source": "requirements-stage2-lock.txt",
+      "archive": "requirements-stage2-lock.txt"
+    },
+    {
+      "source": "docs/BUSINESS_METRICS.md",
+      "archive": "docs/BUSINESS_METRICS.md"
+    },
+    {
+      "source": "docs/LOCAL_RUN_AND_DELIVERY.md",
+      "archive": "docs/LOCAL_RUN_AND_DELIVERY.md"
+    },
+    {
+      "source": "docs/DEFENSE_SCRIPT.md",
+      "archive": "docs/DEFENSE_SCRIPT.md"
+    },
+    {
+      "source": "docs/SUBMISSION_CHECKLIST.md",
+      "archive": "docs/SUBMISSION_CHECKLIST.md"
+    },
+    {
+      "source": "docs/DATASET_METHODS_V13.md",
+      "archive": "docs/DATASET_METHODS_V13.md"
+    },
+    {
+      "source": "docs/DEMO_ERP.md",
+      "archive": "docs/DEMO_ERP.md"
+    },
+    {
+      "source": "docs/CANDIDATE_F_RESULTS.md",
+      "archive": "docs/CANDIDATE_F_RESULTS.md"
+    },
+    {
+      "source": "reports/business-metrics.json",
+      "archive": "reports/business-metrics.json"
+    },
+    {
+      "source": "reports/business-metrics.md",
+      "archive": "reports/business-metrics.md"
+    },
+    {
+      "source": "reports/operator-time-study-template.csv",
+      "archive": "reports/operator-time-study-template.csv"
+    },
+    {
+      "source": "tests/test_business_metrics.py",
+      "archive": "tests/test_business_metrics.py"
+    },
+    {
+      "source": "tests/test_submission_builder.py",
+      "archive": "tests/test_submission_builder.py"
+    },
+    {
+      "source": "artifacts/stage5/quality90-v1/reports/candidate-f-semantic-round06/aggregate-summary.json",
+      "archive": "artifacts/stage5/quality90-v1/reports/candidate-f-semantic-round06/aggregate-summary.json"
+    },
+    {
+      "source": "artifacts/stage5/quality90-v1/verification/candidate-f-final-assessment-verification.json",
+      "archive": "artifacts/stage5/quality90-v1/verification/candidate-f-final-assessment-verification.json"
+    },
+    {
+      "source": "docs/DATASET_FINAL_F.md",
+      "archive": "docs/DATASET_FINAL_F.md"
+    },
+    {
+      "source": "docs/review/LIVE_LATENCY_2026-09-19.md",
+      "archive": "docs/review/LIVE_LATENCY_2026-09-19.md"
+    }
+  ]
+}

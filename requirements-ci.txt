@@ -1,0 +1,5 @@
+# CPU contract/API tests only: no model downloads or CUDA packages.
+pydantic==2.13.5
+langgraph==1.0.10
+fastapi==0.119.1
+httpx==0.28.1

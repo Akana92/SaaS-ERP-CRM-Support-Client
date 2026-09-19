@@ -1,0 +1,21 @@
+{
+  "candidates": [
+    {
+      "key": "qwen3_4b",
+      "model_id": "Qwen/Qwen3-4B-Instruct-2507",
+      "revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+      "local_path": "models/qwen3_4b",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/tree/cdbee75f17c01a7cc42f958dc650907174af0554",
+      "license": "apache-2.0"
+    },
+    {
+      "key": "qwen25_15b",
+      "model_id": "Qwen/Qwen2.5-1.5B-Instruct",
+      "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+      "local_path": "models/qwen25_15b",
+      "source": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct/tree/989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+      "license": "apache-2.0"
+    }
+  ],
+  "selected_key": "qwen3_4b"
+}

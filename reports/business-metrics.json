@@ -1,0 +1,118 @@
+{
+  "schema_version": "business-smoke-metrics-v1",
+  "scope": "new_manual_fictional_erp_smoke_not_quality_evaluation",
+  "population_note": "Small authored functional smoke sample, not representative production traffic or a quality test",
+  "client": {
+    "requests": 5,
+    "conversations": 4,
+    "statuses": {
+      "human_escalation": 2,
+      "answered": 2,
+      "fallback": 1
+    },
+    "answered_without_handoff": 2,
+    "answered_without_handoff_rate": 0.4,
+    "escalated_requests": 3,
+    "escalated_request_rate": 0.6,
+    "conversations_with_handoff": 2,
+    "conversation_handoff_rate": 0.5,
+    "raw_model_handoff": {
+      "yes": 2,
+      "no": 2,
+      "unavailable": 1
+    },
+    "usage": {
+      "calls": 5,
+      "requests_without_usage": 0,
+      "complete_calls": 5,
+      "complete": true,
+      "input_tokens": 22912,
+      "output_tokens": 855,
+      "total_tokens": 23767,
+      "api_cost": 0.0,
+      "currency": "USD",
+      "latency": {
+        "observed_calls": 5,
+        "mean_ms": 23724.6,
+        "median_ms": 24048,
+        "min_ms": 17128,
+        "max_ms": 30612,
+        "p95_ms": null,
+        "p95_note": "Not reported for this small purposive smoke sample",
+        "scope": "generation only; excludes queue, prompt preparation and delivery; not TTFT"
+      },
+      "tokens_per_call": 4753.4,
+      "api_cost_per_call": 0.0
+    }
+  },
+  "comparison": {
+    "available": true,
+    "base": {
+      "calls": 1,
+      "requests_without_usage": 0,
+      "complete_calls": 1,
+      "complete": true,
+      "input_tokens": 4559,
+      "output_tokens": 145,
+      "total_tokens": 4704,
+      "api_cost": 0.0,
+      "currency": "USD",
+      "latency": {
+        "observed_calls": 1,
+        "mean_ms": 10981,
+        "median_ms": 10981,
+        "min_ms": 10981,
+        "max_ms": 10981,
+        "p95_ms": null,
+        "p95_note": "Not reported for this small purposive smoke sample",
+        "scope": "generation only; excludes queue, prompt preparation and delivery; not TTFT"
+      },
+      "tokens_per_call": 4704.0,
+      "api_cost_per_call": 0.0
+    },
+    "fine_tuned": {
+      "calls": 1,
+      "requests_without_usage": 0,
+      "complete_calls": 1,
+      "complete": true,
+      "input_tokens": 4559,
+      "output_tokens": 162,
+      "total_tokens": 4721,
+      "api_cost": 0.0,
+      "currency": "USD",
+      "latency": {
+        "observed_calls": 1,
+        "mean_ms": 22968,
+        "median_ms": 22968,
+        "min_ms": 22968,
+        "max_ms": 22968,
+        "p95_ms": null,
+        "p95_note": "Not reported for this small purposive smoke sample",
+        "scope": "generation only; excludes queue, prompt preparation and delivery; not TTFT"
+      },
+      "tokens_per_call": 4721.0,
+      "api_cost_per_call": 0.0
+    },
+    "note": "One authored pair; excluded from client traffic and routing denominators"
+  },
+  "unmeasured": {
+    "confirmed_resolution_rate": null,
+    "operator_minutes_saved": null,
+    "human_handling_baseline_minutes": null,
+    "end_to_end_response_ms": null,
+    "electricity_cost": null,
+    "hardware_cost": null,
+    "total_cost_per_request": null
+  },
+  "limitations": [
+    "Routing without handoff is not confirmed resolution or autonomous success",
+    "No human time study, production population, final test or new quality judging",
+    "API fee 0 does not measure total operating cost",
+    "One conversation may contain several requests and handoff cards",
+    "Reported model latency excludes queue and user-visible delivery"
+  ],
+  "source": {
+    "path": "artifacts/stage5/latency-2026-09-19/http/http-smoke.json",
+    "sha256": "f0e3d558e232480910591ec60854bc36fcae6bf1560be8cd8ca68fde9fe1223a"
+  }
+}

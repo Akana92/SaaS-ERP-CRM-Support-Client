@@ -1,0 +1,7 @@
+# Preserve exact bytes: frozen configs and evaluation receipts use SHA-256 pins.
+# Do not normalize line endings during add/checkout.
+* -text
+*.pdf binary
+*.pptx binary
+*.jpg binary
+*.png binary

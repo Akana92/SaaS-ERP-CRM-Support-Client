@@ -1,0 +1,61 @@
+{
+  "version": "fictional-demo-erp-v1",
+  "objects": [
+    {
+      "reference": "INV-1001", "org_id": "org-demo-01", "audience": "customer", "principal_id": "demo-customer-01",
+      "label": "Оплата и активация SIM", "message": "Счёт INV-1001 оплачен, но четыре SIM не работают. Проверьте статус.",
+      "source_status": "ok",
+      "facts": {
+        "erp.invoice.reference": "INV-1001", "erp.payment.status": "paid",
+        "erp.plan.name": "Мега+ (вымышленный учебный пакет)", "erp.plan.sim_count": 6,
+        "erp.sim.active_count": 2, "erp.sim.pending_activation_count": 4,
+        "erp.sim.activation_cause": "Причина ожидания не указана; требуется проверка сотрудником поддержки",
+        "erp.support.owner": "Демо-служба поддержки абонентов"
+      }
+    },
+    {
+      "reference": "INV-1002", "org_id": "org-demo-01", "audience": "customer", "principal_id": "demo-customer-01",
+      "label": "Проверить оплату счёта", "message": "Проверьте, поступила ли оплата по счёту INV-1002?",
+      "source_status": "ok",
+      "facts": {
+        "erp.invoice.reference": "INV-1002", "erp.payment.status": "unpaid",
+        "erp.help.payment_status": "В учебной ERP оплата по этому счёту не зарегистрирована. Это не подтверждает отсутствие списания в банке. Если клиент уже платил, специалисту нужны дата платежа и несекретный номер операции; повторную оплату автоматически не предлагать.",
+        "erp.support.owner": "Демо-служба поддержки оплаты"
+      }
+    },
+    {
+      "reference": "SIM-1001", "org_id": "org-demo-01", "audience": "customer", "principal_id": "demo-customer-01",
+      "label": "Статус комплекта SIM", "message": "В комплекте SIM-1001 работают только две карты из шести. Что известно об остальных?",
+      "source_status": "ok",
+      "facts": {
+        "erp.sim.bundle_reference": "SIM-1001", "erp.plan.sim_count": 6,
+        "erp.payment.status": "paid", "erp.sim.active_count": 2, "erp.sim.pending_activation_count": 4,
+        "erp.sim.activation_cause": "Причина ожидания не указана; срок активации не опубликован",
+        "erp.support.owner": "Демо-служба поддержки абонентов"
+      }
+    },
+    {
+      "reference": "BP-2001", "org_id": "org-demo-01", "audience": "employee", "principal_id": "demo-employee-01",
+      "label": "Не хватает прав", "message": "Не могу запустить подключение BP-2001. Проверьте мои права и кому обратиться.",
+      "source_status": "ok",
+      "facts": {
+        "erp.process.reference": "BP-2001", "erp.access.can_start_connection": false,
+        "erp.access.current_role": "Наблюдатель", "erp.help.connection_role": "Менеджер подключений",
+        "erp.help.access_request": "Запросить проверку прав у демо-группы управления доступом через этот чат. Права не выдаются автоматически.",
+        "erp.support.owner": "Демо-группа управления доступом ERP"
+      }
+    },
+    {
+      "reference": "BP-2002", "org_id": "org-demo-01", "audience": "employee", "principal_id": "demo-employee-01",
+      "label": "Как запустить подключение", "message": "Есть ли доступ к подключению BP-2002 и как его запустить?",
+      "source_status": "ok",
+      "facts": {
+        "erp.process.reference": "BP-2002", "erp.access.can_start_connection": true,
+        "erp.access.current_role": "Менеджер подключений",
+        "erp.help.connection_path": "Клиенты → Заявки → Новое подключение",
+        "erp.help.connection_steps": "Открыть учебную заявку, проверить данные клиента и выбранную услугу, затем нажать «Запустить». Чат не запускает процесс и не подтверждает его выполнение.",
+        "erp.support.owner": "Демо-группа поддержки ERP"
+      }
+    }
+  ]
+}
